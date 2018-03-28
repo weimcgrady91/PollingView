@@ -31,7 +31,7 @@ public class PollingView extends LinearLayout {
     private ViewPager mViewPager;
     private List<View> mDots;
     private int mDotSize;
-    private boolean mPollingflag;
+    private boolean mPollingFlag;
 
     public PollingView(Context context) {
         this(context, null);
@@ -68,11 +68,11 @@ public class PollingView extends LinearLayout {
     };
 
     public void startPolling() {
-        mPollingflag = true;
+        mPollingFlag = true;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (mPollingflag) {
+                while (mPollingFlag) {
                     try {
                         Thread.sleep(2000);
                         mHandler.sendEmptyMessage(1);
@@ -85,7 +85,7 @@ public class PollingView extends LinearLayout {
     }
 
     public void stopPolling() {
-        mPollingflag = false;
+        mPollingFlag = false;
     }
     private void initDots() {
         mDotSize = data.size() >= 5 ? 5 : data.size();
