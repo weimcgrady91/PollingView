@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PollingView.iml" filepath="$PROJECT_DIR$/PollingView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pollingview/pollingview.iml" filepath="$PROJECT_DIR$/pollingview/pollingview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pollingview-demo/app.iml" filepath="$PROJECT_DIR$/pollingview-demo/app.iml" />
+    </modules>
+  </component>
+</project>
