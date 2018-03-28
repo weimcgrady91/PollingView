@@ -1,6 +1,8 @@
 package com.qun.lib.pollingview;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -29,6 +31,7 @@ public class PollingView extends LinearLayout {
     private ViewPager mViewPager;
     private List<View> mDots;
     private int mDotSize;
+    private boolean mPollingflag;
 
     public PollingView(Context context) {
         this(context, null);
@@ -56,6 +59,34 @@ public class PollingView extends LinearLayout {
         initDots();
     }
 
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
+        }
+    };
+
+    public void startPolling() {
+        mPollingflag = true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (mPollingflag) {
+                    try {
+                        Thread.sleep(2000);
+                        mHandler.sendEmptyMessage(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    public void stopPolling() {
+        mPollingflag = false;
+    }
     private void initDots() {
         mDotSize = data.size() >= 5 ? 5 : data.size();
         int dotWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, mContext.getResources().getDisplayMetrics());
@@ -137,6 +168,7 @@ public class PollingView extends LinearLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        stopPolling();
         mViewPager.removeOnPageChangeListener(mOnPageChangeListener);
     }
 }

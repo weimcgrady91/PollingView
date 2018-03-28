@@ -50,5 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         PollingView pollingView = findViewById(R.id.polling);
         pollingView.setData(obtainData());
+        pollingView.startPolling();
     }
 }
